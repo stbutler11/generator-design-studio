@@ -85,5 +85,22 @@ $(function(){
 	    return -1;
 	}
 
+	// Properties template
+	var source   = $("#properties-template").html();
+	var template = Handlebars.compile(source);
+	var context = {properties: sdkcomponent.properties};
+	var html    = template(context);
+	$("#properties-list").append(html);
+
+	$("#properties-form").on("submit", function(e) {
+		e.stopPropagation(true);
+		e.preventDefault(true);
+		$(".js-component-property").each(function() {
+			var name = $(this).attr("name"),
+				value = $(this).val();
+			sdkcomponent[name](value);
+		});
+		sdkcomponent.afterUpdate();
+	});
 
 });

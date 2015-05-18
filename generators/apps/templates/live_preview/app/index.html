@@ -51,27 +51,13 @@
       <div class="row">
 
         <div class="col-sm-3 sidebar">
-            <div class="row">
-               <div class="form-group form-group-options col-xs-11">
-                    <div class="input-group input-group-option col-xs-12">
-                        <input type="text" name="option[]" class="form-control" placeholder="Add values">
-                        <span class="input-group-addon input-group-addon-remove">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
 
              <div class="row">
-
                 <div class="form-group form-group-multiple-selects col-xs-11">
                     <div class="input-group input-group-multiple-select col-xs-12">
                         <select id="dataSourceSelection" class="form-control" name="values[]">
                             <option value="">Add Data Source</option>
-                            <option value="1">DS 1</option>
-                            <option value="2">DS 2</option>
-                            <option value="3">DS 3</option>
-                            <option value="4">DS 4</option>
+
                         </select>
                         <span class="input-group-addon input-group-addon-remove">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -79,17 +65,38 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+               <div id="properties-list" class="form-group form-group-options col-xs-11">
+                </div>
+            </div>
         </div>
 
 
         <div class="col-sm-8 main">
           <h1 class="page-header">Component</h1>
-            <div id="componentDiv">
-              <p>ColorBox</p>
-            </div>
+          <div id="componentDiv">
+            <p>ColorBox</p>
+          </div>
         </div>
       </div>
     </div>
+
+
+    <script id="datasource-template" type="text/x-handlebars-template">
+      <option value="{{name}}">{{name}} </option>
+    </script>
+
+    <script id="properties-template" type="text/x-handlebars-template">
+      <form id="properties-form">
+          {{#each properties}}
+            <div class="form-group">
+              <label for="property-{{this}}">{{this}}</label>
+              <input class="form-control js-component-property" name="{{this}}" id="property-{{this}}" placeholder="Enter value for {{this}}">
+            </div>
+          {{/each}}
+      </form>
+    </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -121,6 +128,7 @@
         <script src="bower_components/bootstrap/js/collapse.js"></script>
         <script src="bower_components/bootstrap/js/tab.js"></script>
         <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/handlebars/handlebars.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
@@ -130,5 +138,5 @@
         <script src="src/component/res/component.js"></script>
         <script src="scripts/page.js"></script>
         <!-- endbuild -->
-</body>
+  </body>
 </html>

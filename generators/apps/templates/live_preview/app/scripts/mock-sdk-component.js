@@ -9,9 +9,11 @@ sap.designstudio.sdk.Component = {
 	subclass: function(name, mixinFn) {
 		'use strict';
 
-		var ctx = {};
+		var ctx = {},
+			properties;
 
 		ctx.afterUpdate = _.noop;
+		ctx.init = _.noop;
 
 		ctx.$ = function() {
 			return $('#componentDiv');
@@ -34,7 +36,13 @@ sap.designstudio.sdk.Component = {
 			ctx[name]();
 		};
 
+		properties = _.functions(ctx);
+
 		mixinFn.apply(ctx);
+
+		ctx.properties = _.difference(_.functions(ctx), properties);
+
+
 		ctx.init();
 		ctx.afterUpdate();
 
