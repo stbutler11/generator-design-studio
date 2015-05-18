@@ -5,7 +5,6 @@ var yosay = require('yosay');
 var mkdirp = require('yeoman-generator/node_modules/mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
-  
   prompting: function () {
     var done = this.async();
 
@@ -36,35 +35,29 @@ module.exports = yeoman.generators.Base.extend({
       var sdkName = this.props.sdkName;
       var sdkNameOneWord = sdkName.replace(/\s+/g, '');
       var sdkNameLower = sdkNameOneWord.toLowerCase();
-        
-        
+
       this.fs.copyTpl(
         this.templatePath(),
         this.destinationPath(),
-        {   
+        {
             bundle: bundleID,
             title: sdkName,
             titleLower: sdkNameLower,
             titleOneWord: sdkNameOneWord
         }
-          
       );
-    
+
     //Needed otherwise .project file not copied
       this.fs.copyTpl(
         this.templatePath('src/component/.project'),
         this.destinationPath('src/component/.project'),
-        {   
+        {
             bundle: bundleID,
             titleLower: sdkNameLower
         }
-          
       );
-        
       mkdirp.sync(this.destinationPath('src/dist/'));
-    
-      this.bowerInstall();    
-        
+
     }
 
   }
