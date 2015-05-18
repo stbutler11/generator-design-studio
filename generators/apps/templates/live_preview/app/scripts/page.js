@@ -88,19 +88,44 @@ $(function(){
 	// Properties template
 	var source   = $("#properties-template").html();
 	var template = Handlebars.compile(source);
-	var context = {properties: sdkcomponent.properties};
+	var properties = _.map(sdkcomponent.properties, function(property) {
+		var isData = property === "data",
+			cannedDataSources;
+		if (isData) {
+			cannedDataSources = _.pluck(sap.zen.sdk.mock.listCannedData(), "name");
+		}
+		return {
+			"name": property,
+			"isData": isData,
+			"cannedDataSources": cannedDataSources
+		};
+	});
+	var context = { properties: properties };
 	var html    = template(context);
 	$("#properties-list").append(html);
 
-	$("#properties-form").on("submit", function(e) {
+	$("#properties-form").on("submit", updatePropertiesEvent);
+	$("#properties-form input").on("keypress", function(e) {
+		if (e.which === 13) {
+			updatePropertiesEvent(e);
+		}
+	});
+	$("#dataSourceSelection").on("change", updatePropertiesEvent);
+
+
+
+	function updatePropertiesEvent(e) {
 		e.stopPropagation(true);
 		e.preventDefault(true);
 		$(".js-component-property").each(function() {
 			var name = $(this).attr("name"),
 				value = $(this).val();
+			if (name === "data") {
+				value = sap.zen.sdk.mock.getCannedData(value).data;
+			}
 			sdkcomponent[name](value);
 		});
 		sdkcomponent.afterUpdate();
-	});
+	}
 
 });

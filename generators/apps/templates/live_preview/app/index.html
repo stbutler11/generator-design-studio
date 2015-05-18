@@ -51,32 +51,16 @@
       <div class="row">
 
         <div class="col-sm-3 sidebar">
-
-             <div class="row">
-                <div class="form-group form-group-multiple-selects col-xs-11">
-                    <div class="input-group input-group-multiple-select col-xs-12">
-                        <select id="dataSourceSelection" class="form-control" name="values[]">
-                            <option value="">Add Data Source</option>
-
-                        </select>
-                        <span class="input-group-addon input-group-addon-remove">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
             <div class="row">
-               <div id="properties-list" class="form-group form-group-options col-xs-11">
-                </div>
+              <div id="properties-list" class="form-group form-group-options col-xs-11">
+                <h4> Set Properties</h4>
+              </div>
             </div>
         </div>
 
 
         <div class="col-sm-8 main">
-          <h1 class="page-header">Component</h1>
           <div id="componentDiv">
-            <p>ColorBox</p>
           </div>
         </div>
       </div>
@@ -91,8 +75,17 @@
       <form id="properties-form">
           {{#each properties}}
             <div class="form-group">
-              <label for="property-{{this}}">{{this}}</label>
-              <input class="form-control js-component-property" name="{{this}}" id="property-{{this}}" placeholder="Enter value for {{this}}">
+              <label for="property-{{name}}">{{name}}</label>
+              {{#if isData}}
+                <select id="dataSourceSelection" class="form-control js-component-property" name="{{name}}">
+                  <option value="">----</option>
+                  {{#each cannedDataSources}}
+                    <option value="{{this}}">{{this}}</option>
+                  {{/each}}
+                </select>
+              {{else}}
+                <input class="form-control js-component-property" name="{{name}}" id="property-{{name}}" placeholder="Enter value for {{name}}">
+              {{/if}}
             </div>
           {{/each}}
       </form>

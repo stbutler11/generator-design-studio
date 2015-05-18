@@ -1,4 +1,4 @@
-/* global sap */
+/* global sap, console */
 /* jshint strict: false, quotmark:false */
 sap.designstudio.sdk.Component.subclass("com.sap.sample.coloredbox.ColoredBox", function() {
 
@@ -18,5 +18,9 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.coloredbox.ColoredBox", 
 			this.$().css("background-color", value);
 			return this;
 		}
+	};
+
+	this.prop2 = function(value) {
+		console.log(value);
 	};
 });

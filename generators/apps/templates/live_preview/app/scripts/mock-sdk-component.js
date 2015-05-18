@@ -29,7 +29,6 @@ sap.designstudio.sdk.Component = {
 
 		ctx.setProperty = function(name, value) {
 			ctx[name](value);
-			ctx.afterUpdate(); // ???
 		};
 
 		ctx.getProperty = function(name) {
@@ -37,11 +36,8 @@ sap.designstudio.sdk.Component = {
 		};
 
 		properties = _.functions(ctx);
-
 		mixinFn.apply(ctx);
-
 		ctx.properties = _.difference(_.functions(ctx), properties);
-
 
 		ctx.init();
 		ctx.afterUpdate();
