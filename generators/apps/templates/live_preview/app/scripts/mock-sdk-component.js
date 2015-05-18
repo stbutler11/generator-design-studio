@@ -1,4 +1,4 @@
-/*global sap */
+/*global sap, _, $, console */
 
 window.sap = window.sap || {};
 sap.designstudio = sap.designstudio || {};
@@ -10,6 +10,8 @@ sap.designstudio.sdk.Component = {
 		'use strict';
 
 		var ctx = {};
+
+		ctx.afterUpdate = _.noop;
 
 		ctx.$ = function() {
 			return $('#componentDiv');
