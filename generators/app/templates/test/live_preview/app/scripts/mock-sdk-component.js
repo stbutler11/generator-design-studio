@@ -16,11 +16,13 @@ sap.designstudio.sdk.Component = {
 		ctx.init = _.noop;
 
 		ctx.$ = function() {
-			return $('#componentDiv');
+			return $('#component-div');
 		};
 
 		ctx.fireEvent = function() {
-			console.log('fireEvent', arguments);
+			var timeCell = '<td>' + new Date().toLocaleTimeString() + '</td>',
+				eventCell = '<td>' + JSON.stringify(arguments) + '</td>';
+			$('#event-table').append('<tr>' + timeCell + eventCell + '</tr>');
 		};
 
 		ctx.firePropertiesChangedAndEvent = function() {

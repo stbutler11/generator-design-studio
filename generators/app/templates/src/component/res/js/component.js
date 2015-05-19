@@ -5,7 +5,7 @@ sap.designstudio.sdk.Component.subclass("<%= bundle %>.<%= titleLower %>.<%= tit
 	this.init = function() {
 		this.$().addClass("coloredBox");
 		this.$().click(function() {
-			that.fireEvent("onclick");
+			that.fireEvent("onclick ;lkajsdf;lk lkajsd fkljasdfh  lkjhasdf ");
 		});
 	};
 
