@@ -31,6 +31,7 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      var done = this.async();
       var bundleID = this.props.bundleID;
       var sdkName = this.props.sdkName;
       var sdkNameOneWord = sdkName.replace(/\s+/g, '');
@@ -56,10 +57,24 @@ module.exports = yeoman.generators.Base.extend({
             titleLower: sdkNameLower
         }
       );
+        
+    //mkdirp used to create empty directories    
       mkdirp.sync(this.destinationPath('src/dist/'));
-
+      done();    
     }
 
+  },
+    
+  install : function(){
+      
+    console.log('Installing Dependancies...');
+      
+    this.npmInstall();
+    var bowerDir = process.cwd() + '/test/live_preview';
+    process.chdir(bowerDir);
+    this.bowerInstall();
   }
+
+  
 
 });
