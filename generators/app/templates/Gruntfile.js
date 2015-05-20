@@ -16,11 +16,12 @@ module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
-  // Configurable paths
   var config = {
     app: 'test/live_preview/app',
     dist: 'dist',
-    staging: '.staging'
+    staging: '.staging',
+    bundle: '<$= bundle $>',
+    title: '<$= title $>'
   };
 
     // Load the plugins

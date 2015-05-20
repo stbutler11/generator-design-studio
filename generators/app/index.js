@@ -58,10 +58,22 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
 
-      this.fs.copy(
+      // this.fs.copy(
+      //   this.templatePath('Gruntfile.js'),
+      //   this.destinationPath('Gruntfile.js')
+      // );
+     this.fs.copyTpl(
         this.templatePath('Gruntfile.js'),
-        this.destinationPath('Gruntfile.js')
-      );
+        this.destinationPath('Gruntfile.js'),
+        {
+            bundle: bundleID,
+            title: sdkName
+        },
+        {
+          escape: /<$-([\s\S]+?)$>/g,
+          evaluate: /<$([\s\S]+?)$>/g,
+          interpolate: /<$=([\s\S]+?)$>/g
+        });
 
     //mkdirp used to create empty directories
       mkdirp.sync(this.destinationPath('dist/'));
