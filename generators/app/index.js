@@ -17,7 +17,7 @@ module.exports = yeoman.generators.Base.extend({
     {
       //type: 'confirm',
       name: 'bundleID',
-      message: 'PLease choose a bundle identifier',
+      message: 'Please choose a bundle identifier',
       default: 'com.sap.sample'
     }];
 
@@ -60,11 +60,11 @@ module.exports = yeoman.generators.Base.extend({
 
       this.fs.copy(
         this.templatePath('Gruntfile.js'),
-        this.destinationPath('test/Gruntfile.js')
+        this.destinationPath('Gruntfile.js')
       );
 
     //mkdirp used to create empty directories
-      mkdirp.sync(this.destinationPath('src/dist/'));
+      mkdirp.sync(this.destinationPath('dist/'));
       done();
     }
 
