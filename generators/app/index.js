@@ -38,7 +38,7 @@ module.exports = yeoman.generators.Base.extend({
       var sdkNameLower = sdkNameOneWord.toLowerCase();
 
       this.fs.copyTpl(
-        this.templatePath(),
+        this.templatePath('root'),
         this.destinationPath(),
         {
             bundle: bundleID,
@@ -50,31 +50,36 @@ module.exports = yeoman.generators.Base.extend({
 
     //Needed otherwise .project file not copied
       this.fs.copyTpl(
-        this.templatePath('src/component/.project'),
+        this.templatePath('root/src/component/.project'),
         this.destinationPath('src/component/.project'),
         {
             bundle: bundleID,
             titleLower: sdkNameLower
         }
       );
-        
-    //mkdirp used to create empty directories    
+
+      this.fs.copy(
+        this.templatePath('Gruntfile.js'),
+        this.destinationPath('test/Gruntfile.js')
+      );
+
+    //mkdirp used to create empty directories
       mkdirp.sync(this.destinationPath('src/dist/'));
-      done();    
+      done();
     }
 
   },
-    
+
   install : function(){
-      
+
     console.log('Installing Dependancies...');
-      
+
     this.npmInstall();
     var bowerDir = process.cwd() + '/test/live_preview';
     process.chdir(bowerDir);
     this.bowerInstall();
   }
 
-  
+
 
 });
