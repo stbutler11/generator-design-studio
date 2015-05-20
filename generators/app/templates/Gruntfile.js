@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    app: 'live_preview/app',
+    app: 'test/live_preview/app',
     dist: 'dist'
   };
 
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
+        files: ['./src/component/res/{,*/}*.js'],
         tasks: ['jshint'],
         options: {
           livereload: true
@@ -45,8 +45,11 @@ module.exports = function (grunt) {
         files: ['Gruntfile.js']
       },
       styles: {
-        files: ['<%= config.app %>/styles/{,*/}*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer']
+        files: ['./src/component/res/{,*/}*.css'],
+        tasks: ['newer:copy:styles', 'autoprefixer'],
+        options: {
+          livereload: true
+        }
       },
       livereload: {
         options: {
@@ -74,7 +77,7 @@ module.exports = function (grunt) {
           middleware: function(connect) {
             return [
               connect.static('.tmp'),
-              connect().use('/bower_components', connect.static('./live_preview/bower_components')),
+              connect().use('/bower_components', connect.static('./test/live_preview/bower_components')),
               connect().use('/src', connect.static('./src')),
               connect.static(config.app)
             ];
