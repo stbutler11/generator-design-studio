@@ -19,8 +19,12 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'test/live_preview/app',
-    dist: 'dist'
+    dist: 'dist',
+    staging: '.staging'
   };
+
+    // Load the plugins
+  grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -88,7 +92,8 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
-      server: '.tmp'
+      server: '.tmp',
+      staging: '.staging'
     },
 
     // Copies remaining files to places other tasks can use
@@ -107,6 +112,64 @@ module.exports = function (grunt) {
       server: [
         'copy:styles'
       ]
+    },
+
+    compress : {
+      plugin: {
+        options: {
+            mode: 'zip',
+            archive: '<%= config.staging %>/plugins/com.sap.sample_VERSION.jar'
+        },
+        files: [{
+            expand: true,
+            cwd: 'src/component',
+            src: [ '**' ]
+          }]
+      },
+      artifacts: {
+        options: {
+            mode: 'zip',
+            archive: '<%= config.staging %>/artifacts.jar'
+        },
+        files: [{
+            expand: true,
+            cwd: 'src/feature_files',
+            src: [ 'artifacts.xml' ]
+          }]
+      },
+      content: {
+        options: {
+            mode: 'zip',
+            archive: '<%= config.staging %>/content.jar'
+        },
+        files: [{
+            expand: true,
+            cwd: 'src/feature_files',
+            src: [ 'content.xml' ]
+          }]
+      },
+      feature: {
+        options: {
+            mode: 'zip',
+            archive: '<%= config.staging %>/features/COMPONENT_FEATURE_TODO.jar'
+        },
+        files: [{
+            expand: true,
+            cwd: 'src/feature_files',
+            src: [ 'feature.xml' ]
+          }]
+      },
+      dist: {
+        options: {
+            mode: 'zip',
+            archive: 'dist/component_NAME.zip'
+        },
+        files: [{
+            expand: true,
+            cwd: '<%= config.staging %>',
+            src: [ '**' ]
+          }]
+      },
     }
   });
 
@@ -132,4 +195,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'serve'
   ]);
+
+  grunt.registerTask('dist', ['clean:staging', 'compress']);
 };
