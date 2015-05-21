@@ -58,22 +58,16 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
 
-      // this.fs.copy(
-      //   this.templatePath('Gruntfile.js'),
-      //   this.destinationPath('Gruntfile.js')
-      // );
-     this.fs.copyTpl(
-        this.templatePath('Gruntfile.js'),
-        this.destinationPath('Gruntfile.js'),
-        {
-            bundle: bundleID,
-            title: sdkName
-        },
-        {
-          escape: /<$-([\s\S]+?)$>/g,
-          evaluate: /<$([\s\S]+?)$>/g,
-          interpolate: /<$=([\s\S]+?)$>/g
-        });
+      var gruntString = this.fs.read(this.templatePath('Gruntfile.js'));
+       gruntString = gruntString.replace("$BUNDLE$",bundleID);
+       gruntString = gruntString.replace("$SDKLOWER$",sdkNameLower);
+       gruntString = gruntString.replace("$SDKONE$" ,sdkNameOneWord);
+       gruntString = gruntString.replace("$SDKNAME$",sdkName);
+
+      console.log(gruntString);
+     // this.fs.createPreloadedFile(this.destinationPath(),'Gruntfile.js',null,true,true);
+
+     this.fs.write(this.destinationPath('Gruntfile.js'),gruntString);
 
     //mkdirp used to create empty directories
       mkdirp.sync(this.destinationPath('dist/'));

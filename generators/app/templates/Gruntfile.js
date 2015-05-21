@@ -20,8 +20,10 @@ module.exports = function (grunt) {
     app: 'test/live_preview/app',
     dist: 'dist',
     staging: '.staging',
-    bundle: '<$= bundle $>',
-    title: '<$= title $>'
+    bundle: '$BUNDLE$',
+    sdkNameOneWord: "$SDKONE$",
+    sdkName: "$SDKNAME$",
+    sdkNameLower:"$SDKLOWER$"
   };
 
     // Load the plugins
