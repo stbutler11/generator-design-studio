@@ -10,8 +10,13 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.10.1",
     "grunt-wiredep": "^1.7.0",
+    "jasmine-core": "^2.3.4",
     "jshint-stylish": "^0.4.0",
+    "karma": "^0.12.32",
+    "karma-chrome-launcher": "^0.1.12",
+    "karma-jasmine": "^0.2.2",
     "load-grunt-tasks": "^0.4.0",
     "time-grunt": "^0.4.0",
     "grunt-replace": "^0.9.0"

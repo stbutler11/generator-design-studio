@@ -1,12 +1,4 @@
-// Generated on 2015-05-14 using
-// generator-webapp 0.5.1
 'use strict';
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// If you want to recursively match all subfolders, use:
-// 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
 
@@ -21,15 +13,16 @@ module.exports = function (grunt) {
     dist: 'dist',
     staging: '.staging',
     bundle: '$BUNDLE$',
-    sdkNameOneWord: "$SDKONE$",
+    sdkNameOneWord: '$SDKONE$',
     //sdkName: "$SDKNAME$",
-    sdkNameLower:"$SDKLOWER$",
-    version: "1.0.0"
+    sdkNameLower:'$SDKLOWER$',
+    version: '1.0.0'
   };
 
     // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-replace');
+  grunt.loadNpmTasks('grunt-karma');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -112,33 +105,33 @@ module.exports = function (grunt) {
       }
     },
     //Insert variables into feature files
-        replace: {
-          dist: {
-            options: {
-              patterns: [
-                {
-                  match: 'bundle',
-                  replacement: '<%= config.bundle %>'
-                },
-                {
-                  match: 'version',
-                  replacement: '<%= config.version %>'
-                },
-                {
-                  match: 'titleLower',
-                  replacement: '<%= config.sdkNameLower %>'
-                },
-                {
-                  match: 'titleOneWord',
-                  replacement: '<%= config.sdkNameOneWord %>'
-                }
-              ]
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'bundle',
+              replacement: '<%= config.bundle %>'
             },
-            files: [
-              {expand: true, flatten: true, src: 'src/feature_files/*',dest: 'src/feature_files/' }
-            ]
-        }
-      },
+            {
+              match: 'version',
+              replacement: '<%= config.version %>'
+            },
+            {
+              match: 'titleLower',
+              replacement: '<%= config.sdkNameLower %>'
+            },
+            {
+              match: 'titleOneWord',
+              replacement: '<%= config.sdkNameOneWord %>'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: 'src/feature_files/*',dest: 'src/feature_files/' }
+        ]
+      }
+    },
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
@@ -150,7 +143,7 @@ module.exports = function (grunt) {
       plugin: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/plugins/<%= config.bundle %>_<%= config.version %>.jar'
+            archive: '<%= config.staging %>/plugins/<%= config.bundle %>.<%= config.sdkNameLower%>_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -183,7 +176,7 @@ module.exports = function (grunt) {
       feature: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/features/<%= config.sdkNameLower %>_<%= config.version %>.jar'
+            archive: '<%= config.staging %>/features/<%= config.sdkNameOneWord %>Feature_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -202,6 +195,21 @@ module.exports = function (grunt) {
             src: [ '**' ]
           }]
       },
+    },
+
+    karma: {
+      unit: {
+        options: {
+            files: [
+              'test/live_preview/bower_components/underscore/underscore.js',
+              'test/unit/**/mock*.js',
+              'src/component/res/js/**/*.js',
+              'test/unit/**/*test.js'
+            ],
+            browsers: ['Chrome'],
+            frameworks: ['jasmine']
+        }
+      }
     }
   });
 
@@ -229,4 +237,5 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('dist', ['clean:staging', 'replace' ,'compress']);
+  grunt.registerTask('test', ['karma']);
 };

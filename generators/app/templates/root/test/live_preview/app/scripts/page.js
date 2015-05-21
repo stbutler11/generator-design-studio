@@ -10,7 +10,7 @@ $(function(){
 		$('.js-component-property').each(function() {
 			var name = $(this).attr('name'),
 				value = $(this).val();
-			if (name === 'data') {
+			if (value && name === 'data') {
 				value = sap.zen.sdk.mock.getCannedData(value).data;
 			}
 			sdkcomponent.setProperty(name, value);
