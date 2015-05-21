@@ -25,6 +25,7 @@ module.exports = function (grunt) {
 
     // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-karma');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -170,6 +171,21 @@ module.exports = function (grunt) {
             src: [ '**' ]
           }]
       },
+    },
+
+    karma: {
+      unit: {
+        options: {
+            files: [
+              'test/live_preview/bower_components/underscore/underscore.js',
+              'test/unit/**/mock*.js',
+              'src/component/res/js/**/*.js',
+              'test/unit/**/*test.js'
+            ],
+            browsers: ['Chrome'],
+            frameworks: ['jasmine']
+        }
+      }
     }
   });
 
@@ -197,4 +213,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('dist', ['clean:staging', 'compress']);
+
+  grunt.registerTask('test', ['karma']);
 };
