@@ -58,6 +58,12 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
 
+      this.fs.copy(
+        this.templatePath('feature_files'),
+        this.destinationPath('src/feature_files')
+      );
+
+
       var gruntString = this.fs.read(this.templatePath('Gruntfile.js'));
        gruntString = gruntString.replace("$BUNDLE$",bundleID);
        gruntString = gruntString.replace("$SDKLOWER$",sdkNameLower);
