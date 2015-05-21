@@ -1,16 +1,24 @@
-This is a generator for Design Studio SDK components which uses
+This is a Yeoman generator for Design Studio SDK components which uses
 Yeoman and Grunt.
 
-# Setup 
+## Setup 
 
-1. Setup NPM
-2. Change to directory where you wish to place the Yeoman Generator
-3. Run "NPM i generator-design-studio"
-4. Run NPM link from where the Yeoman generator has been cloned to
-5. Create a folder in which you wish to place the SDK Design Studio
+1. Install node
+2. Install [Yeoman](http://yeoman.io/) globally
+   * ```npm install -g yo```
+3. Install [bower](http://bower.io/) globally
+  * ```npm install -g bower```
+4. Install [grunt](http://gruntjs.com/) globally
+  * ```npm install -g grunt-cli```
+2. Install generator-design-studio globally
+   *  ```npm install -g generator-design-studio```
+3. Create a folder in which you wish to place the SDK Design Studio
 Generator
-6. Run "yo design-studio" in the folder where the SDK Generator has
+4. Run ```yo design-studio``` in the folder where the SDK Generator has
 been placed
-7. Run "grunt serve" to start browser and edit the properties of the SDK
-8. If you wish to use the SDK generated as a scaffold for Design Studio 
-   you can run the command "grunt dist
+
+## Previewing the component
+Run ```grunt serve``` to start browser and edit the properties of the SDK component
+
+## Creating the SDK component zip file
+Run ```grunt dist``` to create a zip file in the dist folder that can be imported into design studio
