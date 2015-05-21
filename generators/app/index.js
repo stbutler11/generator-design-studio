@@ -63,6 +63,11 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('Gruntfile.js')
       );
 
+      this.fs.copy(
+        this.templatePath('feature_files'),
+        this.destinationPath('src/feature_files')
+      );
+
     //mkdirp used to create empty directories
       mkdirp.sync(this.destinationPath('dist/'));
       done();
