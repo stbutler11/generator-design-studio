@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-[![Code Climate](https://codeclimate.com/github/stbutler11/generator-design-studio/badges/gpa.svg)](https://codeclimate.com/github/stbutler11/generator-design-studio)
-
-# generator-design-studio
-=======
-# Generator-Design-Studio
->>>>>>> Stashed changes
-
 This is a generator for Design Studio SDK components which uses
 Yeoman and Grunt.
 
