@@ -22,12 +22,14 @@ module.exports = function (grunt) {
     staging: '.staging',
     bundle: '$BUNDLE$',
     sdkNameOneWord: "$SDKONE$",
-    sdkName: "$SDKNAME$",
-    sdkNameLower:"$SDKLOWER$"
+    //sdkName: "$SDKNAME$",
+    sdkNameLower:"$SDKLOWER$",
+    version: "1.0.0"
   };
 
     // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-replace');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -109,7 +111,34 @@ module.exports = function (grunt) {
         src: '{,*/}*.css'
       }
     },
-
+    //Insert variables into feature files
+        replace: {
+          dist: {
+            options: {
+              patterns: [
+                {
+                  match: 'bundle',
+                  replacement: '<%= config.bundle %>'
+                },
+                {
+                  match: 'version',
+                  replacement: '<%= config.version %>'
+                },
+                {
+                  match: 'titleLower',
+                  replacement: '<%= config.sdkNameLower %>'
+                },
+                {
+                  match: 'titleOneWord',
+                  replacement: '<%= config.sdkNameOneWord %>'
+                }
+              ]
+            },
+            files: [
+              {expand: true, flatten: true, src: 'src/feature_files/*',dest: 'src/feature_files/' }
+            ]
+        }
+      },
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
@@ -121,7 +150,7 @@ module.exports = function (grunt) {
       plugin: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/plugins/com.sap.sample_VERSION.jar'
+            archive: '<%= config.staging %>/plugins/<%= config.bundle %>_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -154,7 +183,7 @@ module.exports = function (grunt) {
       feature: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/features/COMPONENT_FEATURE_TODO.jar'
+            archive: '<%= config.staging %>/features/<%= config.sdkNameLower %>_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -165,7 +194,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
             mode: 'zip',
-            archive: 'dist/component_NAME.zip'
+            archive: 'dist/<%= config.sdkNameOneWord %>.zip'
         },
         files: [{
             expand: true,
@@ -199,5 +228,5 @@ module.exports = function (grunt) {
     'serve'
   ]);
 
-  grunt.registerTask('dist', ['clean:staging', 'compress']);
+  grunt.registerTask('dist', ['clean:staging', 'replace' ,'compress']);
 };
