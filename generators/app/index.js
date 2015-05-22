@@ -1,7 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+var chalk = require('chalk'); // TODO remove?
+var yosay = require('yosay');  // TODO remove?
 var mkdirp = require('yeoman-generator/node_modules/mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
@@ -48,7 +48,7 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
 
-    //Needed otherwise .project file not copied
+      //Needed otherwise .project file not copied
       this.fs.copyTpl(
         this.templatePath('root/src/component/.project'),
         this.destinationPath('src/component/.project'),
@@ -59,16 +59,23 @@ module.exports = yeoman.generators.Base.extend({
       );
 
       this.fs.copy(
-        this.templatePath('Gruntfile.js'),
-        this.destinationPath('Gruntfile.js')
-      );
-
-      this.fs.copy(
         this.templatePath('feature_files'),
         this.destinationPath('src/feature_files')
       );
 
-    //mkdirp used to create empty directories
+
+      var gruntString = this.fs.read(this.templatePath('Gruntfile.js'));
+      gruntString = gruntString.replace('$BUNDLE$',bundleID);
+      gruntString = gruntString.replace('$SDKLOWER$',sdkNameLower);
+      gruntString = gruntString.replace('$SDKONE$' ,sdkNameOneWord);
+      gruntString = gruntString.replace('$SDKNAME$',sdkName);
+
+      console.log(gruntString);
+      // this.fs.createPreloadedFile(this.destinationPath(),'Gruntfile.js',null,true,true);
+
+      this.fs.write(this.destinationPath('Gruntfile.js'),gruntString);
+
+      //mkdirp used to create empty directories
       mkdirp.sync(this.destinationPath('dist/'));
       done();
     }

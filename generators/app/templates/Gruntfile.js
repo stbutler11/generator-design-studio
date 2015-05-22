@@ -1,12 +1,4 @@
-// Generated on 2015-05-14 using
-// generator-webapp 0.5.1
 'use strict';
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// If you want to recursively match all subfolders, use:
-// 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
 
@@ -16,15 +8,20 @@ module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
-  // Configurable paths
   var config = {
     app: 'test/live_preview/app',
     dist: 'dist',
-    staging: '.staging'
+    staging: '.staging',
+    bundle: '$BUNDLE$',
+    sdkNameOneWord: '$SDKONE$',
+    //sdkName: "$SDKNAME$",
+    sdkNameLower:'$SDKLOWER$',
+    version: '1.0.0'
   };
 
     // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks('grunt-karma');
 
   // Define the configuration for all the tasks
@@ -107,7 +104,34 @@ module.exports = function (grunt) {
         src: '{,*/}*.css'
       }
     },
-
+    //Insert variables into feature files
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'bundle',
+              replacement: '<%= config.bundle %>'
+            },
+            {
+              match: 'version',
+              replacement: '<%= config.version %>'
+            },
+            {
+              match: 'titleLower',
+              replacement: '<%= config.sdkNameLower %>'
+            },
+            {
+              match: 'titleOneWord',
+              replacement: '<%= config.sdkNameOneWord %>'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: 'src/feature_files/*',dest: 'src/feature_files/' }
+        ]
+      }
+    },
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
@@ -119,7 +143,7 @@ module.exports = function (grunt) {
       plugin: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/plugins/com.sap.sample_VERSION.jar'
+            archive: '<%= config.staging %>/plugins/<%= config.bundle %>.<%= config.sdkNameLower%>_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -152,7 +176,7 @@ module.exports = function (grunt) {
       feature: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/features/COMPONENT_FEATURE_TODO.jar'
+            archive: '<%= config.staging %>/features/<%= config.sdkNameOneWord %>Feature_<%= config.version %>.jar'
         },
         files: [{
             expand: true,
@@ -163,7 +187,7 @@ module.exports = function (grunt) {
       dist: {
         options: {
             mode: 'zip',
-            archive: 'dist/component_NAME.zip'
+            archive: 'dist/<%= config.sdkNameOneWord %>.zip'
         },
         files: [{
             expand: true,
@@ -212,7 +236,6 @@ module.exports = function (grunt) {
     'serve'
   ]);
 
-  grunt.registerTask('dist', ['clean:staging', 'compress']);
-
+  grunt.registerTask('dist', ['clean:staging', 'replace' ,'compress']);
   grunt.registerTask('test', ['karma']);
 };

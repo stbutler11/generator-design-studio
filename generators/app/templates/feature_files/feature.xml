@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="<%= titleOneWord %>Feature"
-      label="<%= titleOneWord %>Feature"
-      version="1.0.0">
+      id="@@titleOneWordFeature"
+      label="@@titleOneWordFeature"
+      version="@@version">
 
    <description url="http://www.example.com/description">
       Custom SDK Extention.
@@ -17,10 +17,10 @@
    </license>
 
    <plugin
-         id="<%= bundle %>.<%= titleLower %>"
+         id="@@bundle.@@titleLower"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="@@version"
          unpack="false"/>
 
 </feature>
