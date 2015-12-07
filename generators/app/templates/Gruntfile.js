@@ -14,10 +14,10 @@ module.exports = function (grunt) {
     staging: '.staging',
     bundle: '$BUNDLE$',
     sdkNameOneWord: '$SDKONE$',
-    //sdkName: "$SDKNAME$",
-    sdkNameLower:'$SDKLOWER$',
     version: '1.0.0'
   };
+
+  config.sdkNameLower = config.sdkNameOneWord.toLowerCase();
 
     // Load the plugins
   grunt.loadNpmTasks('grunt-contrib-compress');
@@ -128,7 +128,7 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: 'src/feature_files/*',dest: 'src/feature_files/' }
+          {expand: true, flatten: true, src: 'src/feature_files/*',dest: '.tmp/feature_files/' }
         ]
       }
     },
@@ -158,7 +158,7 @@ module.exports = function (grunt) {
         },
         files: [{
             expand: true,
-            cwd: 'src/feature_files',
+            cwd: '.tmp/feature_files',
             src: [ 'artifacts.xml' ]
           }]
       },
@@ -169,7 +169,7 @@ module.exports = function (grunt) {
         },
         files: [{
             expand: true,
-            cwd: 'src/feature_files',
+            cwd: '.tmp/feature_files',
             src: [ 'content.xml' ]
           }]
       },
@@ -180,7 +180,7 @@ module.exports = function (grunt) {
         },
         files: [{
             expand: true,
-            cwd: 'src/feature_files',
+            cwd: '.tmp/feature_files',
             src: [ 'feature.xml' ]
           }]
       },
