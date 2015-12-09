@@ -14,7 +14,10 @@ module.exports = function (grunt) {
     staging: '.staging',
     bundle: '$BUNDLE$',
     sdkNameOneWord: '$SDKONE$',
-    version: '1.0.0'
+    version: '1.0.0',
+    dsVersion: '15.0.2',
+    dsBaseVersion: '15.0',
+    timestamp: '201412171344'
   };
 
   config.sdkNameLower = config.sdkNameOneWord.toLowerCase();
@@ -102,6 +105,12 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      component: {
+        expand: true,
+        cwd: 'src/component',
+        src: '**',
+        dest: '.tmp/component/'
       }
     },
     //Insert variables into feature files
@@ -124,11 +133,25 @@ module.exports = function (grunt) {
             {
               match: 'titleOneWord',
               replacement: '<%= config.sdkNameOneWord %>'
+            },
+            {
+              match: 'ds_version',
+              replacement: '<%= config.dsVersion %>'
+            },
+            {
+              match: 'ds_base_version',
+              replacement: '<%= config.dsBaseVersion %>'
+            },
+            {
+              match: 'timestamp',
+              replacement: '<%= config.timestamp %>'
             }
           ]
         },
         files: [
-          {expand: true, flatten: true, src: 'src/feature_files/*',dest: '.tmp/feature_files/' }
+          {expand: true, flatten: true, src: 'src/feature_files/*',dest: '.tmp/feature_files/' },
+          {expand: true, flatten: true, src: 'src/component/META-INF/MANIFEST.MF',dest: '.tmp/component/META-INF/' },
+          {expand: true, flatten: true, src: 'src/component/contribution.xml',dest: '.tmp/component' }
         ]
       }
     },
@@ -143,11 +166,11 @@ module.exports = function (grunt) {
       plugin: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/plugins/<%= config.bundle %>.<%= config.sdkNameLower%>_<%= config.version %>.jar'
+            archive: '<%= config.staging %>/plugins/<%= config.bundle %>.<%= config.sdkNameLower %>_<%= config.dsVersion %>.<%= config.timestamp %>.jar'
         },
         files: [{
             expand: true,
-            cwd: 'src/component',
+            cwd: '.tmp/component',
             src: [ '**' ]
           }]
       },
@@ -176,7 +199,7 @@ module.exports = function (grunt) {
       feature: {
         options: {
             mode: 'zip',
-            archive: '<%= config.staging %>/features/<%= config.sdkNameOneWord %>Feature_<%= config.version %>.jar'
+            archive: '<%= config.staging %>/features/<%= config.sdkNameOneWord %>Feature_<%= config.version %>.<%= config.timestamp %>.jar'
         },
         files: [{
             expand: true,
@@ -236,6 +259,6 @@ module.exports = function (grunt) {
     'serve'
   ]);
 
-  grunt.registerTask('dist', ['clean:staging', 'replace' ,'compress']);
+  grunt.registerTask('dist', ['clean:staging', 'copy:component', 'replace' ,'compress']);
   grunt.registerTask('test', ['karma']);
 };
