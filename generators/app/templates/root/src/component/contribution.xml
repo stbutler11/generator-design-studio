@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sdkExtension
 	xmlns="http://www.sap.com/bi/zen/sdk"
-	id="<%= bundle %>.<%= titleLower %>"
+	id="@@bundle.@@titleLower"
 	title="Design Studio SDK Extension <%= title %>"
-	version="1.0"
+	version="@@ds_base_version"
 	vendor="SAP">
 	<component
-		id="<%= titleOneWord %>"
+		id="@@titleLower"
 		title="<%= title %>"
 		icon="res/icon.png"
 		handlerType="div"

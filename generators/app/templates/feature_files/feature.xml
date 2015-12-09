@@ -2,7 +2,7 @@
 <feature
       id="@@titleOneWordFeature"
       label="@@titleOneWordFeature"
-      version="@@version">
+      version="@@version.@@timestamp">
 
    <description url="http://www.example.com/description">
       Custom SDK Extention.
@@ -20,7 +20,7 @@
          id="@@bundle.@@titleLower"
          download-size="0"
          install-size="0"
-         version="@@version"
+         version="@@ds_version.@@timestamp"
          unpack="false"/>
 
 </feature>
