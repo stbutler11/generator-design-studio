@@ -1,8 +1,5 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk'); // TODO remove?
-var yosay = require('yosay');  // TODO remove?
-var mkdirp = require('yeoman-generator/node_modules/mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -70,26 +67,29 @@ module.exports = yeoman.generators.Base.extend({
       gruntString = gruntString.replace('$SDKONE$' ,sdkNameOneWord);
       gruntString = gruntString.replace('$SDKNAME$',sdkName);
 
-      console.log(gruntString);
-      // this.fs.createPreloadedFile(this.destinationPath(),'Gruntfile.js',null,true,true);
-
       this.fs.write(this.destinationPath('Gruntfile.js'),gruntString);
 
-      //mkdirp used to create empty directories
-      mkdirp.sync(this.destinationPath('dist/'));
       done();
     }
 
   },
 
   install : function(){
+    var currentDir = process.cwd();
+    var bowerDir = currentDir + '/test/live_preview';
 
-    console.log('Installing Dependancies...');
+    this.currentDir = currentDir;
+
+    this.log('Installing Dependancies...');
 
     this.npmInstall();
-    var bowerDir = process.cwd() + '/test/live_preview';
+
     process.chdir(bowerDir);
     this.bowerInstall();
+  },
+
+  end: function() {
+    process.chdir(this.currentDir);
   }
 
 
