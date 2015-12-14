@@ -15,6 +15,7 @@ module.exports = function(grunt) {
     };
 
     config.sdkNameLower = config.sdkNameOneWord.toLowerCase();
+    config.sdkExtensionTitle = 'Design Studio SDK Extendsion ' + config.sdkNameOneWord;
 
     require('load-grunt-config')(grunt, {
         data: config
@@ -33,6 +34,9 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['serve']);
-    grunt.registerTask('dist', ['clean', 'copy:component', 'replace', 'compress']);
+    grunt.registerTask('updateVersion', 'Updates the version in the contribution and manifest',
+        ['xmlpoke:updateContributionXml', 'replace:manifest']);
+    grunt.registerTask('dist', 'Creates a zip file that can be imported into Design Studio as an SDK extension',
+        ['clean', 'updateVersion', 'copy:component', 'replace:dist', 'compress']);
     grunt.registerTask('test', ['karma']);
 };
