@@ -12,6 +12,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-karma": "^0.10.1",
     "grunt-wiredep": "^1.7.0",
+    "grunt-xmlpoke": "^0.8.0",
     "jasmine-core": "^2.3.4",
     "jshint-stylish": "^0.4.0",
     "karma": "^0.12.32",
