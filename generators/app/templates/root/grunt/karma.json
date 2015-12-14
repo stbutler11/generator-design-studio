@@ -1,0 +1,14 @@
+{
+    "unit": {
+        "options": {
+            "files": [
+                "test/live_preview/bower_components/underscore/underscore.js",
+                "test/unit/**/mock*.js",
+                "src/component/res/js/**/*.js",
+                "test/unit/**/*test.js"
+            ],
+            "browsers": ["Chrome"],
+            "frameworks": ["jasmine"]
+        }
+    }
+}

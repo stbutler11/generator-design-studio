@@ -1,0 +1,33 @@
+{
+    "js": {
+        "files": ["./src/component/res/{,*/}*.js"],
+        "tasks": ["jshint"],
+        "options": {
+            "livereload": true
+        }
+    },
+    "jstest": {
+        "files": ["test/spec/{,*/}*.js"],
+        "tasks": ["test:watch"]
+    },
+    "gruntfile": {
+        "files": ["Gruntfile.js"]
+    },
+    "styles": {
+        "files": ["./src/component/res/{,*/}*.css"],
+        "tasks": ["newer:copy:styles", "autoprefixer"],
+        "options": {
+            "livereload": true
+        }
+    },
+    "livereload": {
+        "options": {
+            "livereload": "<%%= connect.options.livereload %>"
+        },
+        "files": [
+            "<%%= app %>/{,*/}*.html",
+            ".tmp/styles/{,*/}*.css",
+            "<%%= app %>/images/{,*/}*"
+        ]
+    }
+}

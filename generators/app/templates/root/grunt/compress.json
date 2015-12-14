@@ -1,0 +1,57 @@
+{
+    "plugin": {
+        "options": {
+            "mode": "zip",
+            "archive": "<%%= staging %>/plugins/<%%= bundle %>.<%%= sdkNameLower %>_<%%= dsVersion %>.<%%= timestamp %>.jar"
+        },
+        "files": [{
+            "expand": true,
+            "cwd": ".tmp/component",
+            "src": ["**"]
+        }]
+    },
+    "artifacts": {
+        "options": {
+            "mode": "zip",
+            "archive": "<%%= staging %>/artifacts.jar"
+        },
+        "files": [{
+            "expand": true,
+            "cwd": ".tmp/feature_files",
+            "src": ["artifacts.xml"]
+        }]
+    },
+    "content": {
+        "options": {
+            "mode": "zip",
+            "archive": "<%%= staging %>/content.jar"
+        },
+        "files": [{
+            "expand": true,
+            "cwd": ".tmp/feature_files",
+            "src": ["content.xml"]
+        }]
+    },
+    "feature": {
+        "options": {
+            "mode": "zip",
+            "archive": "<%%= staging %>/features/<%%= sdkNameOneWord %>Feature_<%%= version %>.<%%= timestamp %>.jar"
+        },
+        "files": [{
+            "expand": true,
+            "cwd": ".tmp/feature_files",
+            "src": ["feature.xml"]
+        }]
+    },
+    "dist": {
+        "options": {
+            "mode": "zip",
+            "archive": "dist/<%%= sdkNameOneWord %>.zip"
+        },
+        "files": [{
+            "expand": true,
+            "cwd": "<%%= staging %>",
+            "src": ["**"]
+        }]
+    }
+}
