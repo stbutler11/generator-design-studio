@@ -1,0 +1,37 @@
+{
+    "options": {
+        "atBegin": true
+    },
+    "babel": {
+        "files": ["src/component/res/es2015/**/*.js", "test/unit/es2015/**/*.js"],
+        "tasks": ["babel"]
+    },
+    "jstest": {
+        "files": ["test/unit/**/*.js", "src/component/res/js/**/*.js"],
+        "tasks": ["karma:unit:run"]
+    },
+    "gruntfile": {
+        "options": {
+            "atBegin": false
+        },
+        "files": ["Gruntfile.js"]
+    },
+    "styles": {
+        "files": ["./src/component/res/{,*/}*.css"],
+        "tasks": ["newer:copy:styles", "autoprefixer"],
+        "options": {
+            "livereload": true
+        }
+    },
+    "livereload": {
+        "options": {
+            "atBegin": false,
+            "livereload": "<%%= connect.options.livereload %>"
+        },
+        "files": [
+            "<%%= app %>/{,*/}*.html",
+            ".tmp/styles/{,*/}*.css",
+            "<%%= app %>/images/{,*/}*"
+        ]
+    }
+}

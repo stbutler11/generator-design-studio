@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title><%= title %> Property Sheet</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="/aad/zen.rt.components.sdk/resources/js/sdk_propertysheets_handler.js"></script>
+		<script src="additional_properties_sheet.js"></script>
+	</head>
+	<script>
+       <%= bundle %>.<%= titleLower %>.<%= titleOneWord %>PropertyPage();
+	</script>
+	<body>
+		<form id="form">
+			<fieldset>
+				<legend><%= title %> Properties</legend>
+                <table>
+					<tr>
+						<td>Color</td>
+						<td><input id="aps_color" type="text" name="color" size="40" maxlength="40"></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
+	</body>
+</html>

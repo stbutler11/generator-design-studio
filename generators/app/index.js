@@ -33,9 +33,10 @@ module.exports = yeoman.generators.Base.extend({
       var sdkName = this.props.sdkName;
       var sdkNameOneWord = sdkName.replace(/\s+/g, '');
       var sdkNameLower = sdkNameOneWord.toLowerCase();
+      var rootFolder = 'es2015';
 
       this.fs.copyTpl(
-        this.templatePath('root'),
+        this.templatePath(rootFolder),
         this.destinationPath(),
         {
             bundle: bundleID,
@@ -47,7 +48,7 @@ module.exports = yeoman.generators.Base.extend({
 
       //Needed otherwise .project file not copied
       this.fs.copyTpl(
-        this.templatePath('root/src/component/.project'),
+        this.templatePath(rootFolder + '/src/component/.project'),
         this.destinationPath('src/component/.project'),
         {
             bundle: bundleID,

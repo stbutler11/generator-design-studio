@@ -1,0 +1,15 @@
+{
+  	"styles": {
+        "expand": true,
+        "dot": true,
+        "cwd": "<%%= app %>/styles",
+        "dest": ".tmp/styles/",
+        "src": "{,*/}*.css"
+    },
+    "component": {
+        "expand": true,
+        "cwd": "src/component",
+        "src": "**",
+        "dest": ".tmp/component/"
+    }
+}
