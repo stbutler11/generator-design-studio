@@ -17,6 +17,7 @@ module.exports = {
                     connect.static('.tmp'),
                     connect().use('/bower_components', connect.static('./test/live_preview/bower_components')),
                     connect().use('/src', connect.static('./src')),
+                    connect().use('/', connect.static('./src/component/res/js')),
                     connect.static(options.app)
                 ];
             }

@@ -1,5 +1,4 @@
 {
-    "server": [
-        "copy:styles"
-    ]
+    "server": [ "copy:styles" ],
+    "watch" : [ "watch:babel", "watch:livereload" ]
 }

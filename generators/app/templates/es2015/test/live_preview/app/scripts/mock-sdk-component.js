@@ -1,76 +1,74 @@
-/*global sap, _, $, console */
+/*global define, _, $ */
 
-window.sap = window.sap || {};
-sap.designstudio = sap.designstudio || {};
-sap.designstudio.sdk = sap.designstudio.sdk || {};
+define('sap/designstudio/sdk/component', [], function() {
 
-sap.designstudio.sdk.Component = {
+    'use strict';
 
-	subclass: function(name, mixinFn) {
-		'use strict';
+    return {
 
-		var EVENT = 'event',
-			PROPERTIES_CHANGED = 'propertiesChanged',
-			ctx = {},
-			properties,
-			oldPropertyValues = {},
-			propertyChanged = function(name, value) {
-				var changed = false;
-				if (value && value !== oldPropertyValues[name]) {
-					changed = true;
-				} else if (!value && oldPropertyValues[name]) {
-					changed = true;
-				}
-				return changed;
-			},
-			updateActionTable = function(type, value) {
-				var timeCell = '<td>' + new Date().toLocaleTimeString() + '</td>',
-					typeName = type === EVENT ? 'Event' : 'Properties Changed',
-					typeCell = '<td>' + typeName + '</td>',
-					eventCell = '<td>' + value + '</td>';
-				$('#event-table').append('<tr class="' + type + '">' + timeCell + typeCell + eventCell + '</tr>');
-			};
+        subclass: function(name, mixinFn) {
 
-		ctx.afterUpdate = _.noop;
-		ctx.init = _.noop;
+            var EVENT = 'event',
+                PROPERTIES_CHANGED = 'propertiesChanged',
+                ctx = {},
+                properties,
+                oldPropertyValues = {},
+                propertyChanged = function(name, value) {
+                    var changed = false;
+                    if (value && value !== oldPropertyValues[name]) {
+                        changed = true;
+                    } else if (!value && oldPropertyValues[name]) {
+                        changed = true;
+                    }
+                    return changed;
+                },
+                updateActionTable = function(type, value) {
+                    var timeCell = '<td>' + new Date().toLocaleTimeString() + '</td>',
+                        typeName = type === EVENT ? 'Event' : 'Properties Changed',
+                        typeCell = '<td>' + typeName + '</td>',
+                        eventCell = '<td>' + value + '</td>';
+                    $('#event-table').append('<tr class="' + type + '">' + timeCell + typeCell + eventCell + '</tr>');
+                };
 
-		ctx.$ = function() {
-			return $('#component-div');
-		};
+            ctx.afterUpdate = _.noop;
+            ctx.init = _.noop;
 
-		ctx.$.browser = $.browser;
+            ctx.$ = function() {
+                return $('#component-div');
+            };
 
-		ctx.fireEvent = function(e) {
-			updateActionTable(EVENT, e);
-		};
+            ctx.$.browser = $.browser;
 
-		ctx.firePropertiesChanged = function(properties) {
-			updateActionTable(PROPERTIES_CHANGED, properties.join(','));
-		};
+            ctx.fireEvent = function(e) {
+                updateActionTable(EVENT, e);
+            };
 
-		ctx.firePropertiesChangedAndEvent = function(properties, e) {
-			updateActionTable(PROPERTIES_CHANGED, properties.join(','));
-			updateActionTable(EVENT, e);
-		};
+            ctx.firePropertiesChanged = function(properties) {
+                updateActionTable(PROPERTIES_CHANGED, properties.join(','));
+            };
 
-		ctx.setProperty = function(name, value) {
-			if (propertyChanged(name, value)) {
-				ctx[name](value);
-			}
-		};
+            ctx.firePropertiesChangedAndEvent = function(properties, e) {
+                updateActionTable(PROPERTIES_CHANGED, properties.join(','));
+                updateActionTable(EVENT, e);
+            };
 
-		ctx.getProperty = function(name) {
-			ctx[name]();
-		};
+            ctx.setProperty = function(name, value) {
+                if (propertyChanged(name, value)) {
+                    ctx[name](value);
+                }
+            };
 
-		properties = _.functions(ctx);
-		mixinFn.apply(ctx);
-		ctx.properties = _.difference(_.functions(ctx), properties);
+            ctx.getProperty = function(name) {
+                ctx[name]();
+            };
 
-		ctx.init();
-		ctx.afterUpdate();
+            properties = _.functions(ctx);
+            mixinFn.apply(ctx);
+            ctx.properties = _.difference(_.functions(ctx), properties);
 
-		window.sdkcomponent = ctx;
-	}
-};
-
+            ctx.init();
+            ctx.afterUpdate();
+            return ctx;
+        }
+    };
+});

@@ -28,7 +28,7 @@
         var retValue;
         if (arguments.length === 1 && _.isString(arguments[0])) {
             retValue = { '__esModule': true };
-            requireMap[arguments[0].slice(0, '.js'.length * -1)] = retValue;
+            requireMap[arguments[0]] = retValue;
         } else {
             retValue = orignalRequire.apply(null, arguments);
         }

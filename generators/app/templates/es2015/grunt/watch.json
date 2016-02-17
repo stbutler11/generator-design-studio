@@ -16,13 +16,6 @@
         },
         "files": ["Gruntfile.js"]
     },
-    "styles": {
-        "files": ["./src/component/res/{,*/}*.css"],
-        "tasks": ["newer:copy:styles", "autoprefixer"],
-        "options": {
-            "livereload": true
-        }
-    },
     "livereload": {
         "options": {
             "atBegin": false,

@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             'clean:server',
             'concurrent:server',
             'connect:livereload',
-            'watch'
+            'concurrent:watch'
         ]);
     });
 

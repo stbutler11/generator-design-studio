@@ -12,10 +12,11 @@
         }
 
         function createSdkComponent(mixinFn) {
-            return function SdkComponent() {
-                if (!this instanceof SdkComponent) {
+            return function SdkComponent(mockJqueryFn) {
+                if (!(this instanceof SdkComponent)) {
                     return new SdkComponent();
                 }
+                this.$ = mockJqueryFn;
                 mixinFn.apply(this);
             };
         }

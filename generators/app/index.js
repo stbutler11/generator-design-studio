@@ -16,7 +16,13 @@ module.exports = yeoman.generators.Base.extend({
       name: 'bundleID',
       message: 'Please choose a bundle identifier',
       default: 'com.sap.sample'
-    }];
+    },
+    {
+      type: 'confirm',
+      name: 'useEs2015',
+      message: 'Do you want to use ES2015?'
+    }
+    ];
 
     this.prompt(prompts, function (props) {
       this.props = props;
@@ -33,7 +39,7 @@ module.exports = yeoman.generators.Base.extend({
       var sdkName = this.props.sdkName;
       var sdkNameOneWord = sdkName.replace(/\s+/g, '');
       var sdkNameLower = sdkNameOneWord.toLowerCase();
-      var rootFolder = 'es2015';
+      var rootFolder =   this.props.useEs2015 ? 'es2015' : 'root';
 
       this.fs.copyTpl(
         this.templatePath(rootFolder),

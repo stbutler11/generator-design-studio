@@ -3,7 +3,7 @@
 
 This is a Yeoman generator for Design Studio SDK components.
 
-## Setup 
+## Setup
 
 1. Install node
 2. Install [Yeoman](http://yeoman.io/) globally

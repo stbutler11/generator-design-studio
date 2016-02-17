@@ -1,17 +1,26 @@
 /*global describe */
-
-import MyComponent from 'src/component/res/es2015/component.js';
+import MyComponent from 'component';
 
 describe('My Component', () => {
 
     let myComponent;
 
     beforeEach(() => {
-        myComponent = new MyComponent();
+        let _text;
+        let mockJquery = {};
+        mockJquery.text = value => {
+            if (value) {
+                _text = value;
+            }
+            return _text;
+        };
+        myComponent = new MyComponent(() => mockJquery);
     });
 
-    it('should get x', () => {
-        expect(myComponent.x()).toBe(10);
+    it('should have a text property', () => {
+        const text = "Some text";
+        myComponent.text(text);
+        expect(myComponent.text()).toBe(text);
     });
 
     it('should get y', () => {
