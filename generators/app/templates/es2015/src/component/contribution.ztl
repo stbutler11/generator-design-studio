@@ -1,0 +1,12 @@
+class <%= bundle %>.<%= titleLower %>.<%= titleOneWord %> extends Component {
+
+	/* Returns the current color of the box. */
+	String getColor() {*
+		return this.color;
+	*}
+
+	/* Sets the current color of the box. */
+	void setColor(/* New color */ String newColor) {*
+		this.color = newColor;
+	*}
+}

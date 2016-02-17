@@ -1,0 +1,27 @@
+.menu {
+  width: 30%;
+  float: left;
+}
+
+.main, .events {
+  width: 70%;
+  float: left;
+}
+
+.events {
+  width: 70%;
+  float: left;
+}
+
+#component-div {
+  /*width: 600px;*/
+  height: 400px;
+  background-color: #e8e9e8;
+}
+
+#event-div {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow: auto;
+  position: relative;
+}

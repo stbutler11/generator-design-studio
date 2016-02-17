@@ -1,0 +1,18 @@
+{
+    "unit": {
+        "options": {
+            "files": [
+                "test/live_preview/bower_components/underscore/underscore.js",
+                "test/live_preview/bower_components/requirejs/require.js",
+                "test/unit/test-helpers/require-config.js",
+                "test/unit/test-helpers/**/*.js",
+                "src/component/res/js/**/*.js",
+                "test/unit/js/**/*test.js"
+            ],
+            "singleRun": false,
+            "background": true,
+            "browsers": ["Chrome"],
+            "frameworks": ["jasmine"]
+        }
+    }
+}

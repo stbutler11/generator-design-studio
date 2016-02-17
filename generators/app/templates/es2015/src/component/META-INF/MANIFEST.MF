@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Require-Bundle: com.sap.ip.bi.zen.rt.components.sdk.eclipse
+Bundle-Vendor: SAP
+Bundle-Version: 15.0.2.201412171344
+Bundle-Name: Design Studio SDK Extension @@titleLower
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: <%= bundle %>.<%= titleLower %>;singleton:=true

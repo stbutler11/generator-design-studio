@@ -1,0 +1,107 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="src/component/res/css/component.css">
+
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <div id="properties-list">
+          <h4> Set Properties</h4>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="canvas">
+           <div class="row" id="component-div">
+            </div>
+        </div>
+        <div class="events">
+          <div id="event-div">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered table-condensed" id="event-table">
+
+              </table>
+            </div>
+          </div>
+        </div>
+      <div>
+    </div>
+
+
+    <script id="datasource-template" type="text/x-handlebars-template">
+      <option value="{{name}}">{{name}} </option>
+    </script>
+
+    <script id="properties-template" type="text/x-handlebars-template">
+      <form id="properties-form">
+          {{#each properties}}
+            <div class="form-group">
+              <label for="property-{{name}}">{{name}}</label>
+              {{#if isData}}
+                <select id="dataSourceSelection" class="form-control js-component-property" name="{{name}}">
+                  <option value="">----</option>
+                  {{#each cannedDataSources}}
+                    <option value="{{this}}">{{this}}</option>
+                  {{/each}}
+                </select>
+              {{else}}
+                <input class="form-control js-component-property" name="{{name}}" id="property-{{name}}" placeholder="Enter value for {{name}}">
+              {{/if}}
+            </div>
+          {{/each}}
+      </form>
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
+    </script>
+
+    <!-- build:js(.) scripts/plugins.js -->
+    <script src="bower_components/requirejs/require.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- endbuild -->
+
+    <script>
+       require.config({
+        paths: {
+            "Handlebars": "bower_components/Handlebars/Handlebars"
+        }
+      });
+    </script>
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/canned-data/data-source-registry.js"></script>
+    <script src="scripts/canned-data/data-cmrd.js"></script>
+    <script src="scripts/mock-sdk-component.js"></script>
+    <script src="src/component/res/js/component.js"></script>
+    <script src="scripts/page.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

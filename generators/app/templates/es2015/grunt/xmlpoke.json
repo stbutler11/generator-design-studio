@@ -1,0 +1,22 @@
+{
+    "updateContributionXml": {
+        "options": {
+            "replacements": [{
+                "xpath": "/sdkExtension/@id",
+                "value": "<%%= bundle %>.<%%= sdkNameLower %>"
+            }, {
+                "xpath": "/sdkExtension/@title",
+                "value": "<%%= sdkExtensionTitle %>"
+            },{
+                "xpath": "/sdkExtension/@version",
+                "value": "<%%= dsBaseVersion %>"
+            }, {
+                "xpath": "/sdkExtension/component/@id",
+                "value": "<%%= sdkNameLower %>"
+            }]
+        },
+        "files": {
+            "src/component/contribution.xml": "src/component/contribution.xml"
+        }
+    }
+}
